@@ -28,4 +28,23 @@ public class GornerTableCellRenderer implements TableCellRenderer {
         //установить выравнивание надписи по левому краю
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
     }
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col){
+        //преобразовать в Double с поощью форматировщика
+        String formattedDouble = formatter.format(value);
+        //установить текст надписи равным строковуму представлению числа
+        label.setText(formattedDouble);
+        if (col == 1 && needle != null && needle.equals(formattedDouble)){
+            //номер столбца 1 значит 2 столбец + иголка не null значит что-то ищем + значение иголки
+            //совподает со значением ячейки значит окрашиваем в крассный
+            panel.setBackground(Color.RED);
+        } else {
+            //иначе в белый
+            panel.setBackground(Color.WHITE);
+        }
+        return panel;
+    }
+    public void setNeedle(String needle){
+        this.needle = needle;
+    }
 }
+
